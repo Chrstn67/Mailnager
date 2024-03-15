@@ -1,0 +1,133 @@
+.modal-btn {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  background-color: #d0c5f7;
+  outline: 1px solid #e74c3c;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 2rem;
+  width: 60vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 0.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+section.script-note {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  .add-button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    background-color: #1abc9c;
+    color: #fff;
+    cursor: pointer;
+    &:hover {
+      background-color: #1eff007c;
+      color: #000;
+    }
+  }
+
+  .close-button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    background-color: #ff0000;
+    color: #fff;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #ff00007c;
+      color: #000;
+    }
+  }
+}
+
+textarea {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  resize: vertical;
+  text-align: center;
+}
+
+.notes-list {
+  margin: 2rem;
+
+  li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #555557;
+
+    span {
+      flex-basis: 100%;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      background-color: #eafaa9;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+      word-break: break-word;
+    }
+
+    textarea {
+      flex-basis: 100%;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+      resize: vertical;
+      word-wrap: break-word;
+    }
+
+    button {
+      background-color: #66ff00;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+
+    button:last-child {
+      background-color: #ff0000;
+    }
+
+    button + button {
+      margin-left: 0.5rem;
+    }
+  }
+}
