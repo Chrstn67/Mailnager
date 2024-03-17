@@ -1,23 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import "./Footer.scss";
-import MentionsLegales from "../MentionsLegales/MentionsLegales";
 
 const Footer = () => {
-  const [showMentionsLegales, setShowMentionsLegales] = useState(false);
-
-  const toggleMentionsLegales = () => {
-    setShowMentionsLegales(!showMentionsLegales);
-  };
+  const currentYear = new Date().getFullYear();
 
   return (
-    <div className="footer">
-      <button onClick={toggleMentionsLegales}>
-        {showMentionsLegales
-          ? "Cacher les Mentions Légales"
-          : "Lire les Mentions Légales"}
-      </button>
-      {showMentionsLegales && <MentionsLegales />}
-    </div>
+    <footer className="footer">
+      <div className="footer-content">
+        <p>
+          &copy; {currentYear} PaleoData. Tous droits réservés. <br />{" "}
+          <Link to="/mentions-legales">Mentions légales</Link> <br />
+          {/* <Link to="/nous-contacter">Nous contacter</Link> */}
+        </p>
+        <img src="Logo.jpg" alt="Logo développeur" />
+      </div>
+    </footer>
   );
 };
 

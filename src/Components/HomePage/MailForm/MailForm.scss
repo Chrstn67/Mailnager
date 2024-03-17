@@ -1,0 +1,73 @@
+.mail-form {
+  background-color: #000000;
+  color: #fff;
+  box-shadow: inset 3px -3px 500px #9c7154, inset -4px 4px 4px #58402f,
+    0 10px 20px #4e392ac0;
+  text-align: center;
+  border-radius: 0.5em;
+  padding: 1em;
+  margin: 1em;
+
+  input[type="text"],
+  input[type="date"],
+  select {
+    width: 100%;
+    padding: 1em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+    font-size: 1em;
+    line-height: 1.5;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: #4caf50;
+    }
+  }
+
+  .city-autocomplete {
+    position: relative;
+
+    .city-options {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: #9c7154;
+      outline: 1px solid #ccc;
+      border-top: none;
+      border-radius: 0 0 0.5em 0.5em;
+      padding: 0.5em 0;
+      list-style: none;
+      z-index: 1;
+
+      .city-option {
+        padding: 0.5em;
+        cursor: pointer;
+
+        &:hover,
+        &.selected {
+          background-color: #58402f;
+        }
+      }
+    }
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    padding: 1em;
+    background-color: #88644a;
+    color: #fff;
+    border: none;
+    border-radius: 0.5em;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #88644a85;
+    }
+  }
+}

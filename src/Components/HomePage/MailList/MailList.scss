@@ -1,0 +1,103 @@
+.list-container {
+  background-color: #000000;
+
+  box-shadow: inset 3px -3px 500px #9c7154, inset -4px 4px 4px #58402f,
+    0 10px 20px #4e392ac0;
+  text-align: center;
+  border-radius: 0.5em;
+  padding: 1em;
+  margin: 1em;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #fff;
+  }
+
+  .card-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .card {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    position: relative;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -0.5rem;
+      width: 0.5rem;
+      height: 100%;
+      border-radius: 0 0.25rem 0.25rem 0;
+    }
+
+    &.status-en-attente:before {
+      background-color: #f0ad4e;
+    }
+
+    &.status-positive:before {
+      background-color: #5cb85c;
+    }
+
+    &.status-négative:before {
+      background-color: #d9534f;
+    }
+
+    strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-weight: bold;
+    }
+
+    div {
+      margin-bottom: 1rem;
+
+      &:last-child {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+      }
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select {
+      background-color: #fff;
+      color: #333;
+
+      padding: 0.5rem;
+      outline: 1px #000 solid;
+      border-radius: 0.25rem;
+      outline: none;
+      box-sizing: border-box;
+      width: 100%;
+
+      &::placeholder {
+        color: #999;
+      }
+    }
+
+    button {
+      background-color: #1a1a1a;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.25rem;
+      outline: none;
+
+      &:hover {
+        background-color: #333;
+      }
+    }
+  }
+}

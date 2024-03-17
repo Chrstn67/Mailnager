@@ -4,11 +4,10 @@ import "./NotesList.scss";
 
 const NotesList = () => {
   const [notes, setNotes] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
   const [newNote, setNewNote] = useState("");
-  const [editingNoteIndex, setEditingNoteIndex] = useState(-1);
   const [editingNote, setEditingNote] = useState("");
-  const modalRef = useRef();
+  const [editingNoteIndex, setEditingNoteIndex] = useState(-1);
+  const editingNoteRef = useRef(null);
 
   useEffect(() => {
     const storedNotes = JSON.parse(localStorage.getItem("notes"));
@@ -27,30 +26,6 @@ const NotesList = () => {
     };
   }, [notes]);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        closeModal();
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-    setEditingNoteIndex(-1);
-    setEditingNote("");
-  };
-
   const addNote = () => {
     if (newNote.trim() !== "") {
       const updatedNotes = [...notes, newNote];
@@ -66,23 +41,18 @@ const NotesList = () => {
   };
 
   const editNote = (index) => {
-    setEditingNoteIndex(index);
     setEditingNote(notes[index]);
+    setEditingNoteIndex(index);
   };
 
-  const updateNote = () => {
+  const saveEditedNote = () => {
     if (editingNote.trim() !== "") {
       const updatedNotes = [...notes];
       updatedNotes[editingNoteIndex] = editingNote;
       setNotes(updatedNotes);
-      setEditingNoteIndex(-1);
       setEditingNote("");
+      setEditingNoteIndex(-1);
     }
-  };
-
-  const cancelEdit = () => {
-    setEditingNoteIndex(-1);
-    setEditingNote("");
   };
 
   const handleChange = (event) => {
@@ -91,9 +61,16 @@ const NotesList = () => {
     }
   };
 
-  const handleEditingNoteChange = (event) => {
+  const handleEditChange = (event) => {
     if (event.target.value.length <= 100) {
       setEditingNote(event.target.value);
+    }
+  };
+
+  const handleEditBlur = () => {
+    if (editingNoteRef.current) {
+      const updatedNote = editingNoteRef.current.textContent;
+      setEditingNote(updatedNote);
     }
   };
 
@@ -103,64 +80,57 @@ const NotesList = () => {
   };
 
   return (
-    <div>
-      <button onClick={openModal} className="modal-btn">
-        Notes
-      </button>
-      {modalOpen && (
-        <div className="modal">
-          <div ref={modalRef} className="modal-content">
-            <h2>Notes</h2>
-            <section className="script-note">
-              <textarea
-                value={newNote}
-                onChange={handleChange}
-                placeholder="Ecrit ta note (100 caractères max)"
-                maxLength={100}
-              />
-              <button onClick={addNote} className="add-button">
-                Enregistrer
-              </button>
-              <button onClick={closeModal} className="close-button">
-                Fermer
-              </button>
-            </section>
-            <section className="notes-list">
-              <ul>
-                {notes.map((note, index) => (
-                  <li key={index}>
-                    {editingNoteIndex === index ? (
-                      <>
-                        <div>
-                          <textarea
-                            value={editingNote}
-                            onChange={handleEditingNoteChange}
-                            className="saved-note"
-                            maxLength={100}
-                          />
-
-                          <button onClick={updateNote}>Sauvegarder</button>
-                          <button onClick={cancelEdit}>Annuler</button>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <span dangerouslySetInnerHTML={sanitizeHTML(note)} />
-                        <button onClick={() => editNote(index)}>
-                          Modifier
-                        </button>
-                        <button onClick={() => deleteNote(index)}>
-                          Supprimer
-                        </button>
-                      </>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          </div>
-        </div>
-      )}
+    <div className="notes-container">
+      <h2>Notes</h2>
+      <section className="script-note">
+        <input
+          type="text"
+          value={newNote}
+          onChange={handleChange}
+          placeholder="Ecrivez votre note (100 caractères max)"
+          maxLength={100}
+          className="note-input"
+        />
+        <button onClick={addNote} className="add-button">
+          Enregistrer
+        </button>
+      </section>
+      <section className="notes-list">
+        <ul>
+          {notes.map((note, index) => (
+            <li key={index}>
+              {editingNoteIndex === index ? (
+                <>
+                  <div
+                    contentEditable
+                    suppressContentEditableWarning
+                    maxLength={100}
+                    onInput={handleEditChange}
+                    onBlur={handleEditBlur}
+                    ref={editingNoteRef}
+                    dangerouslySetInnerHTML={sanitizeHTML(editingNote)}
+                    className="note-input"
+                  />
+                  <div className="commandes">
+                    <button onClick={saveEditedNote}>Enregistrer</button>
+                    <button onClick={() => setEditingNoteIndex(-1)}>
+                      Annuler
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <span dangerouslySetInnerHTML={sanitizeHTML(note)} />
+                  <div className="commandes">
+                    <button onClick={() => editNote(index)}>Modifier</button>
+                    <button onClick={() => deleteNote(index)}>Supprimer</button>
+                  </div>
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 };

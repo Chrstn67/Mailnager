@@ -1,133 +1,120 @@
-.modal-btn {
-  padding: 0.5rem 1rem;
+.notes-container {
   font-size: 1rem;
-  border: none;
-  border-radius: 0.25rem;
-  background-color: #d0c5f7;
-  outline: 1px solid #e74c3c;
-  cursor: pointer;
-  margin-bottom: 1em;
-}
+  background-color: #000000;
 
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
-
-.modal-content {
-  background-color: #fff;
-  padding: 2rem;
-  width: 60vw;
-  max-height: 90vh;
-  overflow-y: auto;
-  border-radius: 0.5rem;
+  box-shadow: inset 3px -3px 500px #9c7154, inset -4px 4px 4px #58402f,
+    0 10px 20px #4e392ac0;
+  text-align: center;
+  border-radius: 0.5em;
+  padding: 1em;
+  margin: 1em;
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
+  color: #fff;
 }
 
-section.script-note {
+.script-note {
   display: flex;
-  flex-direction: column;
   align-items: center;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .note-input {
+    flex-grow: 1;
+    padding: 0.8em;
+    margin-right: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    font-size: 1em;
+  }
 
   .add-button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 0.25rem;
-    background-color: #1abc9c;
+    padding: 0.8em 2em;
+    background-color: #007bff;
     color: #fff;
-    cursor: pointer;
-    &:hover {
-      background-color: #1eff007c;
-      color: #000;
-    }
-  }
-
-  .close-button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
     border: none;
-    border-radius: 0.25rem;
-    background-color: #ff0000;
-    color: #fff;
+    border-radius: 0.5rem;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: #ff00007c;
-      color: #000;
+      background-color: #0056b3;
     }
   }
-}
-
-textarea {
-  width: 100%;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  resize: vertical;
-  text-align: center;
 }
 
 .notes-list {
-  margin: 2rem;
+  ul {
+    list-style-type: none;
+    padding: 0;
 
-  li {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-evenly;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 3px solid #555557;
-
-    span {
-      flex-basis: 100%;
-      margin-bottom: 0.5rem;
-      padding: 0.5rem;
-      background-color: #eafaa9;
+    li {
+      margin-bottom: 1rem;
       border: 1px solid #ccc;
-      border-radius: 0.25rem;
-      word-break: break-word;
-    }
-
-    textarea {
-      flex-basis: 100%;
-      margin-bottom: 0.5rem;
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 0.25rem;
-      resize: vertical;
-      word-wrap: break-word;
-    }
-
-    button {
-      background-color: #66ff00;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      display: flex;
       justify-content: center;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 0.25rem;
-      cursor: pointer;
-    }
+      align-items: center;
+      flex-wrap: wrap;
 
-    button:last-child {
-      background-color: #ff0000;
-    }
+      box-shadow: inset 3px -3px 500px #ecab7f, inset -4px 4px 4px #58402f,
+        0 10px 20px #4e392ac0;
 
-    button + button {
-      margin-left: 0.5rem;
+      span {
+        overflow: hidden;
+        white-space: normal;
+        word-wrap: break-word;
+        word-break: break-all;
+        flex-grow: 1;
+        min-width: 0;
+        font-size: 1em;
+        margin-bottom: 1em;
+      }
+
+      div[contentEditable] {
+        box-shadow: inset 3px -3px 500px #ecab7f, inset -4px 4px 4px #58402f,
+          0 10px 20px #4e392ac0;
+        appearance: textfield;
+        width: 10em;
+        flex-grow: 1;
+        padding: 0.8em;
+        margin-right: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        font-size: 1em;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        @media (max-width: 768px) {
+          width: 8em;
+        }
+      }
+
+      .commandes {
+        button {
+          padding: 0.5em 1em;
+          margin-left: 0.5em;
+          border: none;
+          border-radius: 0.5rem;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: #f0f0f0;
+          }
+        }
+      }
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .notes-container {
+    padding: 1.5rem;
   }
 }

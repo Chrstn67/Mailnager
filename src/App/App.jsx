@@ -1,74 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import Header from "../Components/Header/Header";
+import HomePage from "../Components/HomePage/HomePage";
 import NotesList from "../Components/NotesList/NotesList";
-import MailForm from "../Components/MailForm/MailForm";
-import MailList from "../Components/MailList/MailList";
+import MentionsLegales from "../Components/Footer/MentionsLegales/MentionsLegales";
 import Footer from "../Components/Footer/Footer";
 import "./App.scss";
 
 const App = () => {
-  const [mails, setMails] = useState([]);
-
-  useEffect(() => {
-    const storedMails = JSON.parse(localStorage.getItem("mails"));
-    if (storedMails) {
-      setMails(storedMails);
-    }
-  }, []);
-
-  useEffect(() => {
-    window.onbeforeunload = () => {
-      localStorage.setItem("mails", JSON.stringify(mails));
-    };
-
-    return () => {
-      window.onbeforeunload = null;
-    };
-  }, [mails]);
-
-  const addMail = (mail) => {
-    const updatedMails = [...mails, mail];
-    setMails(updatedMails);
-  };
-
-  const deleteMail = (index) => {
-    const updatedMails = [...mails];
-    updatedMails.splice(index, 1);
-    setMails(updatedMails);
-  };
-
-  const updateMailStatus = (index, status) => {
-    const updatedMails = [...mails];
-    updatedMails[index].status = status;
-    setMails(updatedMails);
-  };
-
-  const updateMailDetails = (index, updatedMail) => {
-    const updatedMails = [...mails];
-    updatedMails[index] = updatedMail;
-    setMails(updatedMails);
-  };
-
-  const updateMailLocation = (index, location) => {
-    const updatedMails = [...mails];
-    updatedMails[index].location = location;
-    setMails(updatedMails);
-  };
-
   return (
-    <div>
-      <Header />
-      <NotesList />
-      <MailForm addMail={addMail} setMails={setMails} />
-      <MailList
-        mails={mails}
-        deleteMail={deleteMail}
-        updateMailStatus={updateMailStatus}
-        updateMailDetails={updateMailDetails}
-        updateMailLocation={updateMailLocation}
-      />
-      <Footer />
-    </div>
+    <HashRouter>
+      <div>
+        <Header />
+
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/notes" element={<NotesList />} />
+          <Route path="/mentions-legales" element={<MentionsLegales />} />
+          {/*<Route path="/nous-contacter" element={<NousContacter />} />
+          <Route path="*" element={<NotFound />} /> */}
+        </Routes>
+        <Footer />
+      </div>
+    </HashRouter>
   );
 };
 

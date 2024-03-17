@@ -1,11 +1,33 @@
-div .header {
-  background-color: #afa6a6;
+.header {
+  background-color: #000000;
+  color: #fff;
+  box-shadow: inset 3px -3px 500px #9c7154, inset -4px 4px 4px #58402f,
+    0 10px 20px #4e392ac0;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 0.5em;
+  border-radius: 0.5em;
+
+  @media (min-width: 40em) {
+    padding: 3rem 0;
+  }
 
   h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0.5em;
-    padding: 1em;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+
+    @media (min-width: 40em) {
+      font-size: 3.5rem;
+    }
+  }
+
+  p {
+    font-size: 1.2rem;
+    font-weight: 300;
+
+    @media (min-width: 40em) {
+      font-size: 1.5rem;
+    }
   }
 }

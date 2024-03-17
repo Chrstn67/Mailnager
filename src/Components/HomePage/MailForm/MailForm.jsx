@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import DOMPurify from "dompurify";
 import "./MailForm.scss";
 
@@ -12,6 +12,7 @@ const MailForm = ({ addMail }) => {
   const [contractType, setContractType] = useState("");
   const [workingHours, setWorkingHours] = useState("");
   const [cityOptions, setCityOptions] = useState([]);
+  const cityOptionsRef = useRef(null);
   const [selectedCity, setSelectedCity] = useState(null);
 
   useEffect(() => {
@@ -21,6 +22,7 @@ const MailForm = ({ addMail }) => {
           `https://geo.api.gouv.fr/communes?nom=${inputValue}&fields=nom,departement&limit=10`
         );
         const data = await response.json();
+        console.log(data); // Ajoutez cette ligne pour vérifier les données renvoyées par l'API
         const options = data.map((feature) => ({
           label: `${feature.nom}, ${feature.departement.code} - ${feature.departement.nom}`,
           department: feature.departement,
@@ -38,6 +40,21 @@ const MailForm = ({ addMail }) => {
     } else {
       setCityOptions([]);
     }
+
+    const handleOutsideClick = (event) => {
+      if (
+        cityOptionsRef.current &&
+        !cityOptionsRef.current.contains(event.target)
+      ) {
+        setCityOptions([]);
+      }
+    };
+
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
   }, [location]);
 
   const handleCityInputChange = (inputValue) => {
@@ -95,12 +112,19 @@ const MailForm = ({ addMail }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="mail-form" onSubmit={handleSubmit}>
       <input
         type="text"
         value={job}
         onChange={(e) => setJob(e.target.value)}
         placeholder="Métier recherché"
+        required
+      />
+      <input
+        type="text"
+        value={recipient}
+        onChange={(e) => setRecipient(e.target.value)}
+        placeholder="Nom de l'entreprise"
         required
       />
       <div className="city-autocomplete">
@@ -112,7 +136,7 @@ const MailForm = ({ addMail }) => {
           required
         />
         {cityOptions.length > 0 && !selectedCity && (
-          <ul className="city-options">
+          <ul className="city-options" ref={cityOptionsRef}>
             {cityOptions.map((option) => (
               <li
                 key={option.value}
@@ -129,13 +153,7 @@ const MailForm = ({ addMail }) => {
           </ul>
         )}
       </div>
-      <input
-        type="text"
-        value={recipient}
-        onChange={(e) => setRecipient(e.target.value)}
-        placeholder="Nom de l'entreprise"
-        required
-      />
+
       <input
         type="text"
         value={jobAdvert}
