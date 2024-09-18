@@ -26,5 +26,10 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "vite": "^5.1.6"
+  },
+  "pnpm": {
+    "overrides": {
+      "vite@>=5.4.0 <=5.4.5": ">=5.4.6"
+    }
   }
 }
